@@ -1,0 +1,1 @@
+﻿Any relevant service, external factor, or similiar that does not fit in either Domain, Application, or Infrastructure goes here.

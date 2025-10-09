@@ -1,0 +1,1 @@
+﻿Responsible hosting any external dependencies that our application needs. I.e. ORM (Entitiy Framework), File Exports, Mail .

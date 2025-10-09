@@ -1,0 +1,1 @@
+﻿The domain layer models the business of your application. This should be your clear interpretation of it's rules, it's component dynamics and contains it's state at any given moment.

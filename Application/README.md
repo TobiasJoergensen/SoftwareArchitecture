@@ -1,0 +1,1 @@
+﻿The application layer is concerned with defining the jobs needed to be done to accomplish a certain application task. Mainly, it is responsible for mandate the necessary domain work and interacts with other (external or not) services.
