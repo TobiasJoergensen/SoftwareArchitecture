@@ -125,7 +125,7 @@ namespace PlayGround
             Console.ReadKey(true);
 
             Console.WriteLine("D, or Dependency Inversion Principle, states to depend upon abstractions, not concretes.\n");
-            Console.WriteLine("In our code, the \nFactoriser\n is an example of this. In its constructor, it does not rely on a concrete but rather and abstraction in form of an interface.\n");
+            Console.WriteLine("In our code, the \"Factoriser\" is an example of this. In its constructor, it does not rely on a concrete but rather and abstraction in form of an interface.\n");
             Console.WriteLine("This principle reduces coupling, makes the code flexible as concretes are not the only acceptable input, and can make code easier to understand.\n\n");
             Console.WriteLine("In a nutshell: Use abstractions over concretes to make your code more flexible and have less coupling.\n\n\n");
 

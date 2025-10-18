@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,9 @@ namespace Infrastructure.Data
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
-        public string? ConnectionString => base.Database.GetConnectionString() ?? "";
+        public DbSet<UserList> UserLists => Set<UserList>();
+
+        public DbSet<User> User => Set<User>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

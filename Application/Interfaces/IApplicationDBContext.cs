@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,10 @@ namespace Application.Interfaces
 {
     public interface IApplicationDBContext
     {
-        string? ConnectionString { get; }
+        DbSet<UserList> UserLists { get; }
+
+        DbSet<User> User { get; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
     }
 }

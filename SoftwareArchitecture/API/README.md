@@ -1,0 +1,1 @@
+﻿The presentation layer is what we show the outside world. This could be a web application, mobile app, or in this case, the API endpoints.

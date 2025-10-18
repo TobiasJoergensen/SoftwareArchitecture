@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
