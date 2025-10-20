@@ -1,31 +1,17 @@
 ﻿using Domain.Common.Base;
 using Domain.Events;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
 public class User : BaseAuditableEntity
 {
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [Column("UserID")]
     public int UserID { get; set; }
 
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
-
-
-    private bool _done;
-    public bool Done
-    {
-        get => _done;
-        set
-        {
-            if (value && !_done)
-            {
-                AddDomainEvent(new UserCompletedEvent(this));
-            }
-
-            _done = value;
-        }
-    }
-
-    public UserList List { get; set; } = null!;
 }

@@ -1,10 +1,12 @@
 ﻿using Domain.Common.Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
 public class UserList : BaseAuditableEntity
 {
-    public string? Title { get; set; }
-
-    public IList<User> Items { get; private set; } = new List<User>();
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [Column("UserID")]
+    public int UserID { get; set; }
 }

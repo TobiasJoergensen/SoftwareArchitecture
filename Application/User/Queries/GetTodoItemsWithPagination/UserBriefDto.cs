@@ -11,13 +11,12 @@ public class UserBriefDto
 
     public string? LastName { get; set; }
 
-    public bool Done { get; init; }
-
     private class Mapping : Profile
     {
         public Mapping()
         {
             CreateMap<User, UserBriefDto>();
+            CreateMap<UserBriefDto, User>();
         }
     }
 }

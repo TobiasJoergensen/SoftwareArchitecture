@@ -17,7 +17,7 @@ namespace Infrastructure
     {
         public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
         {
-            var connectionString = builder.Configuration.GetConnectionString("localDB");    
+            var connectionString = builder.Configuration.GetConnectionString("LocalDB");    
 
             builder.Services.AddDbContext<ApplicationDBContext>((sp, options) =>
             {

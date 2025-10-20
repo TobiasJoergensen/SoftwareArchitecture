@@ -61,21 +61,5 @@ public class ApplicationDbContextInitialiser
     {
         // Default data
         // Seed, if necessary
-        if (!_context.UserLists.Any())
-        {
-            _context.UserLists.Add(new UserList
-            {
-                Title = "Todo List",
-                Items =
-                {
-                    new User { FirstName = "Test", LastName = "Else" },
-                    new User { FirstName = "Test", LastName = "Else" },
-                    new User {FirstName = "Test", LastName = "Else"},
-                    new User {FirstName = "Test", LastName = "Else"},
-                }
-            });
-
-            await _context.SaveChangesAsync();
-        }
     }
 }

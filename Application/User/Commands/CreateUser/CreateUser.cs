@@ -34,10 +34,10 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateUserCommand, i
 
         entity.AddDomainEvent(new UserCreatedEvent(entity));
 
-        _context.User.Add(entity);
+        _context.Users.Add(entity);
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.Id;
+        return entity.UserID;
     }
 }

@@ -16,7 +16,7 @@ namespace Infrastructure.Data
 
         public DbSet<UserList> UserLists => Set<UserList>();
 
-        public DbSet<User> User => Set<User>();
+        public DbSet<User> Users => Set<User>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

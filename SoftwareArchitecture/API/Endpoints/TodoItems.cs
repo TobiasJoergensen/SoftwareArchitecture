@@ -20,12 +20,11 @@ public class TodoItems : EndpointGroupBase
         groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization();*/
     }
 
-    public async Task<UserBriefDto> GetTodoItem(ISender sender, [FromServices] GetUserQueryHandler query)
+    public async Task<UserBriefDto> GetTodoItem(ISender sender, [AsParameters] GetUserQuery query)
     {
         var result = await sender.Send(query);
-        var lol = new UserBriefDto();
 
-        return lol;
+        return result;
     }
 
     /*
