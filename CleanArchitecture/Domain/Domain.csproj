@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\MigrationScripts\01.InitialSetup.sql" />
+    <Folder Include="Common\Constants\" />
+    <Folder Include="Common\Enums\" />
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="ValueObjects\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="dbup" Version="5.0.41" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
+    <PackageReference Include="MediatR" Version="13.1.0" />
   </ItemGroup>
 
 </Project>
