@@ -7,11 +7,11 @@ using Presentation.Infrastructure;
 
 namespace Presentation.Infrastructure;
 
-public class TodoItems : EndpointGroupBase
+public class Users : EndpointGroupBase
 {
     public override void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGet(GetTodoItem).RequireAuthorization();
+        groupBuilder.MapGet(GetUser).RequireAuthorization();
 
 /*        groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization();
         groupBuilder.MapPost(CreateTodoItem).RequireAuthorization();
@@ -20,7 +20,7 @@ public class TodoItems : EndpointGroupBase
         groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization();*/
     }
 
-    public async Task<UserBriefDto> GetTodoItem(ISender sender, [AsParameters] GetUserQuery query)
+    public async Task<UserBriefDto> GetUser(ISender sender, [AsParameters] GetUserQuery query)
     {
         var result = await sender.Send(query);
 

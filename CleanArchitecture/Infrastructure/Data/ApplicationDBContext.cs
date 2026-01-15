@@ -14,8 +14,6 @@ namespace Infrastructure.Data
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
-        public DbSet<UserList> UserLists => Set<UserList>();
-
         public DbSet<User> Users => Set<User>();
 
         protected override void OnModelCreating(ModelBuilder builder)

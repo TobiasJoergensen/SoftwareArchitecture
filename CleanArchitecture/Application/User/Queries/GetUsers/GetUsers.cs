@@ -7,8 +7,6 @@ namespace Application.Queries;
 public record GetUserQuery : IRequest<UserBriefDto>
 {
     public int UserId { get; init; }
-    public int PageNumber { get; init; } = 1;
-    public int PageSize { get; init; } = 10;
 }
 
 public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserBriefDto>
