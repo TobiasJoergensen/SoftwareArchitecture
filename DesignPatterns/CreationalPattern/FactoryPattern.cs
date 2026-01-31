@@ -2,101 +2,95 @@
 
 public class FactoryPattern
 {
-	    // The Creator class declares the factory method that is supposed to return
-        // an object of a Product class. The Creator's subclasses usually provide
-        // the implementation of this method.
-    public abstract class Creator
+    #region Abstract shared class
+    // The Vehicle class declares the factory method that returns an object of a Vehicle class.
+    public abstract class Vehicle
     {
-        // Note that the Creator may also provide some default implementation of
-        // the factory method.
-        public abstract IProduct FactoryMethod();
+        // The FactoryMethod that we use to create new objects.
+        public abstract IVehicle FactoryMethod();
 
-        // Also note that, despite its name, the Creator's primary
-        // responsibility is not creating products. Usually, it contains some
-        // core business logic that relies on Product objects, returned by the
-        // factory method. Subclasses can indirectly change that business logic
-        // by overriding the factory method and returning a different type of
-        // product from it.
         public string SomeOperation()
         {
             // Call the factory method to create a Product object.
-            var product = FactoryMethod();
-            // Now, use the product.
-            var result = "Creator: The same creator's code has just worked with "
-                + product.Operation();
+            var vehicle = FactoryMethod();
+
+            // Try to use the vehicles combined with the underlying type.
+            var result = vehicle.Drive();
 
             return result;
         }
     }
+    #endregion
 
-    // Concrete Creators override the factory method in order to change the
-    // resulting product's type.
-    class ConcreteCreator1 : Creator
-    {
-        // Note that the signature of the method still uses the abstract product
-        // type, even though the concrete product is actually returned from the
-        // method. This way the Creator can stay independent of concrete product
-        // classes.
-        public override IProduct FactoryMethod()
-        {
-            return new ConcreteProduct1();
-        }
-    }
-
-    class ConcreteCreator2 : Creator
-    {
-        public override IProduct FactoryMethod()
-        {
-            return new ConcreteProduct2();
-        }
-    }
-
+    #region Interface with shared behaviour
     // The Product interface declares the operations that all concrete products
     // must implement.
-    public interface IProduct
+    public interface IVehicle
     {
-        string Operation();
+        string Drive();
     }
+    #endregion
 
-    // Concrete Products provide various implementations of the Product
-    // interface.
-    class ConcreteProduct1 : IProduct
+
+    #region Concrete type of vehicles
+    // Now we can create a specialised type of car and inherit from the abstract type of vehicle.
+    class Dacia : Vehicle
     {
-        public string Operation()
+        // Since the FactoryMethod is abstract, we need to override it and define the logic for how the factory should create the vehicle.
+        public override IVehicle FactoryMethod()
         {
-            return "{Result of ConcreteProduct1}";
+            return new Car();
+        }
+
+        public string WhoAmI()
+        {
+            return "I am a Dacia";
         }
     }
 
-    class ConcreteProduct2 : IProduct
+    class Scania : Vehicle
     {
-        public string Operation()
+        public override IVehicle FactoryMethod()
         {
-            return "{Result of ConcreteProduct2}";
+            return new Truck();
         }
+
+        public string WhoAmI() {
+            return "I am a Scania";
+        }
+    }
+
+    // Concrete vehicles provide various implementations of the Vehicle interface.
+    class Car : IVehicle
+    {
+        public string Drive()
+        {
+            return "I'm a car, and I drive!";
+        }
+    }
+
+    class Truck : IVehicle
+    {
+        public string Drive()
+        {
+            return "I'm a truck, and I drive!";
+        }
+    }
+    #endregion
+
+    public static void ClientCode(Vehicle vehicle)
+    {
+        Console.WriteLine("I am a vehicle. Maybe I am a Dacia. Maybe I am a Scania. I can still drive! :) \n" + vehicle.SomeOperation());
     }
 
     public void Demo()
     {
-        Console.WriteLine("App: Launched with the ConcreteCreator1.");
-        ClientCode(new ConcreteCreator1());
+        Dacia dacia = new Dacia();
+        Console.WriteLine($"App: Launched with a {dacia.WhoAmI()}.");
+        ClientCode(dacia);
 
-        Console.WriteLine("");
-
-        Console.WriteLine("App: Launched with the ConcreteCreator2.");
-        ClientCode(new ConcreteCreator2());
+        Scania scania = new Scania();
+        Console.WriteLine($"App: Launched with {scania.WhoAmI()}.");
+        ClientCode(scania);
     }
-
-    // The client code works with an instance of a concrete creator, albeit
-    // through its base interface. As long as the client keeps working with
-    // the creator via the base interface, you can pass it any creator's
-    // subclass.
-    public static void ClientCode(Creator creator)
-    {
-        // ...
-        Console.WriteLine("Client: I'm not aware of the creator's class," +
-            "but it still works.\n" + creator.SomeOperation());
-        // ...
-    }
-
 }
