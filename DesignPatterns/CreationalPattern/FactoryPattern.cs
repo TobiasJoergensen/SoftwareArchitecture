@@ -6,6 +6,7 @@ public class FactoryPattern
     // The Vehicle class declares the factory method that returns an object of a Vehicle class.
     public abstract class Vehicle
     {
+        public abstract bool hasParticleFilter { get; }
         // The FactoryMethod that we use to create new objects.
         public abstract IVehicle FactoryMethod();
 
@@ -36,10 +37,16 @@ public class FactoryPattern
     // Now we can create a specialised type of car and inherit from the abstract type of vehicle.
     class Dacia : Vehicle
     {
+        public override bool hasParticleFilter { get; }
         // Since the FactoryMethod is abstract, we need to override it and define the logic for how the factory should create the vehicle.
         public override IVehicle FactoryMethod()
         {
             return new Car();
+        }
+
+        public Dacia (bool hasParticleFilter)
+        {
+            this.hasParticleFilter = hasParticleFilter;
         }
 
         public string WhoAmI()
@@ -50,9 +57,16 @@ public class FactoryPattern
 
     class Scania : Vehicle
     {
+        public override bool hasParticleFilter { get; }
+
         public override IVehicle FactoryMethod()
         {
             return new Truck();
+        }
+
+        public Scania(bool hasParticleFilter)
+        {
+            this.hasParticleFilter = hasParticleFilter;
         }
 
         public string WhoAmI() {
@@ -85,11 +99,11 @@ public class FactoryPattern
 
     public void Demo()
     {
-        Dacia dacia = new Dacia();
+        Dacia dacia = new Dacia(false);
         Console.WriteLine($"App: Launched with a {dacia.WhoAmI()}.");
         ClientCode(dacia);
 
-        Scania scania = new Scania();
+        Scania scania = new Scania(true);
         Console.WriteLine($"App: Launched with {scania.WhoAmI()}.");
         ClientCode(scania);
     }
