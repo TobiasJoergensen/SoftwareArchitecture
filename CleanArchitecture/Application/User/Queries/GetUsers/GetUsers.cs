@@ -1,5 +1,6 @@
 ﻿
 using Application.Interfaces;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Queries;
@@ -20,9 +21,9 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserBriefDto>
      
     public async Task<UserBriefDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
-        var test = _context.Users
-            .Where(x => x.UserID == 0);
+        User user = _context.Users
+            .FirstOrDefault(x => x.UserID == request.UserId);
 
-        return UserBriefDto.ToPersonDTOMap(test.First());
+        return UserBriefDto.ToPersonDTOMap(user);
     }
 }

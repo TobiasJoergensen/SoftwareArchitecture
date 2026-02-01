@@ -1,4 +1,5 @@
-﻿using Application.Queries;
+﻿using Application.Commands.CreateTodoItem;
+using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -12,12 +13,7 @@ public class Users : EndpointGroupBase
     public override void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(GetUser).RequireAuthorization();
-
-/*        groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization();
-        groupBuilder.MapPost(CreateTodoItem).RequireAuthorization();
-        groupBuilder.MapPut(UpdateTodoItem, "{id}").RequireAuthorization();
-        groupBuilder.MapPut(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization();
-        groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization();*/
+        groupBuilder.MapPost(CreateUser).RequireAuthorization();
     }
 
     public async Task<UserBriefDto> GetUser(ISender sender, [AsParameters] GetUserQuery query)
@@ -27,22 +23,15 @@ public class Users : EndpointGroupBase
         return result;
     }
 
-    /*
-    public async Task<Ok<PaginatedList<TodoItemBriefDto>>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
-    {
-        var result = await sender.Send(query);
-
-        return TypedResults.Ok(result);
-    }
-
-    public async Task<Created<int>> CreateTodoItem(ISender sender, CreateTodoItemCommand command)
+    public async Task<Created<int>> CreateUser(ISender sender, [AsParameters] CreateUserCommand command)
     {
         var id = await sender.Send(command);
 
-        return TypedResults.Created($"/{nameof(TodoItems)}/{id}", id);
+        return TypedResults.Created($"/{nameof(Users)}/{id}", id);
     }
 
-    public async Task<Results<NoContent, BadRequest>> UpdateTodoItem(ISender sender, int id, UpdateTodoItemCommand command)
+    /*
+    public async Task<Results<NoContent, BadRequest>> UpdateUser(ISender sender, int id, UpdateUserCommand command)
     {
         if (id != command.Id) return TypedResults.BadRequest();
 
@@ -51,18 +40,9 @@ public class Users : EndpointGroupBase
         return TypedResults.NoContent();
     }
 
-    public async Task<Results<NoContent, BadRequest>> UpdateTodoItemDetail(ISender sender, int id, UpdateTodoItemDetailCommand command)
+    public async Task<NoContent> DeleteUser(ISender sender, int id)
     {
-        if (id != command.Id) return TypedResults.BadRequest();
-
-        await sender.Send(command);
-
-        return TypedResults.NoContent();
-    }
-
-    public async Task<NoContent> DeleteTodoItem(ISender sender, int id)
-    {
-        await sender.Send(new DeleteTodoItemCommand(id));
+        await sender.Send(new DeleteUserCommand(id));
 
         return TypedResults.NoContent();
     }

@@ -14,11 +14,11 @@ public record CreateUserCommand : IRequest<int>
 
 }
 
-public class CreateTodoItemCommandHandler : IRequestHandler<CreateUserCommand, int>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
 {
     private readonly IApplicationDBContext _context;
 
-    public CreateTodoItemCommandHandler(IApplicationDBContext context)
+    public CreateUserCommandHandler(IApplicationDBContext context)
     {
         _context = context;
     }
