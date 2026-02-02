@@ -3,12 +3,12 @@ using Domain.Entities;
 
 namespace Domain.Events;
 
-public class UserItemDeletedEvent : BaseEvent
+public class UserDeletedEvent : BaseEvent
 {
-    public UserItemDeletedEvent(User user)
+    public UserDeletedEvent(int UserID)
     {
-        User = user;
+        userID = UserID;
     }
 
-    public User User { get; }
+    public int userID { get; }
 }

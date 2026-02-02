@@ -14,6 +14,7 @@ public class Users : EndpointGroupBase
     {
         groupBuilder.MapGet(GetUser).RequireAuthorization();
         groupBuilder.MapPost(CreateUser).RequireAuthorization();
+        groupBuilder.MapDelete(DeleteUser, "{id}").RequireAuthorization();
     }
 
     public async Task<UserBriefDto> GetUser(ISender sender, [AsParameters] GetUserQuery query)
@@ -29,20 +30,18 @@ public class Users : EndpointGroupBase
 
         return TypedResults.Created($"/{nameof(Users)}/{id}", id);
     }
+    public async Task<NoContent> DeleteUser(ISender sender, int id)
+    {
+        await sender.Send(new DeleteUserCommand(id));
 
+        return TypedResults.NoContent();
+    }
     /*
     public async Task<Results<NoContent, BadRequest>> UpdateUser(ISender sender, int id, UpdateUserCommand command)
     {
         if (id != command.Id) return TypedResults.BadRequest();
 
         await sender.Send(command);
-
-        return TypedResults.NoContent();
-    }
-
-    public async Task<NoContent> DeleteUser(ISender sender, int id)
-    {
-        await sender.Send(new DeleteUserCommand(id));
 
         return TypedResults.NoContent();
     }
