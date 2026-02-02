@@ -15,8 +15,6 @@
     <ProjectReference Include="..\CleanArchitecture\Domain\Domain.csproj" />
     <ProjectReference Include="..\CleanArchitecture\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\DesignPatterns\DesignPatterns.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
