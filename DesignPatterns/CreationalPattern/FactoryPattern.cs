@@ -4,9 +4,8 @@ public class FactoryPattern
 {
     #region Abstract shared class
     // The Vehicle class declares the factory method that returns an object of a Vehicle class.
-    public abstract class Vehicle
+    public abstract class AbstractVehicleFactory
     {
-        public abstract bool hasParticleFilter { get; }
         // The FactoryMethod that we use to create new objects.
         public abstract IVehicle FactoryMethod();
 
@@ -29,82 +28,115 @@ public class FactoryPattern
     public interface IVehicle
     {
         string Drive();
+        string VehicleBrand();
+        bool HasParticleFilter();
     }
     #endregion
 
 
     #region Concrete type of vehicles
     // Now we can create a specialised type of car and inherit from the abstract type of vehicle.
-    class Dacia : Vehicle
+    class CarFactory : AbstractVehicleFactory
     {
-        public override bool hasParticleFilter { get; }
         // Since the FactoryMethod is abstract, we need to override it and define the logic for how the factory should create the vehicle.
         public override IVehicle FactoryMethod()
         {
-            return new Car();
-        }
-
-        public Dacia (bool hasParticleFilter)
-        {
-            this.hasParticleFilter = hasParticleFilter;
-        }
-
-        public string WhoAmI()
-        {
-            return "I am a Dacia";
+            return new Dacia();
         }
     }
 
-    class Scania : Vehicle
+    class TruckFactory : AbstractVehicleFactory
     {
-        public override bool hasParticleFilter { get; }
-
         public override IVehicle FactoryMethod()
         {
-            return new Truck();
-        }
-
-        public Scania(bool hasParticleFilter)
-        {
-            this.hasParticleFilter = hasParticleFilter;
-        }
-
-        public string WhoAmI() {
-            return "I am a Scania";
+            return new Scania();
         }
     }
 
     // Concrete vehicles provide various implementations of the Vehicle interface.
-    class Car : IVehicle
+    class Dacia : IVehicle
     {
+        private bool _wasMadeInEU;
+
         public string Drive()
         {
-            return "I'm a car, and I drive!";
+            return "I drive!";
+        }
+
+        public bool HasParticleFilter()
+        {
+            if (_wasMadeInEU)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public string VehicleBrand()
+        {
+            return "I'm a Dacia!";
         }
     }
 
-    class Truck : IVehicle
+    class Scania : IVehicle
     {
+        private bool _wasMadeInEU = true;
         public string Drive()
         {
-            return "I'm a truck, and I drive!";
+            return "I drive!";
+        }
+
+        public bool HasParticleFilter()
+        {
+            if(_wasMadeInEU)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public string VehicleBrand()
+        {
+            return "I'm a Scania!";
         }
     }
     #endregion
 
-    public static void ClientCode(Vehicle vehicle)
-    {
-        Console.WriteLine("I am a vehicle. Maybe I am a Dacia. Maybe I am a Scania. I can still drive! :) \n" + vehicle.SomeOperation());
-    }
-
     public void Demo()
     {
-        Dacia dacia = new Dacia(false);
-        Console.WriteLine($"App: Launched with a {dacia.WhoAmI()}.");
-        ClientCode(dacia);
+        CarFactory carFactory = new CarFactory();     
+        TruckFactory truckFactory = new TruckFactory();
 
-        Scania scania = new Scania(true);
-        Console.WriteLine($"App: Launched with {scania.WhoAmI()}.");
-        ClientCode(scania);
+        List<IVehicle> list = new List<IVehicle>();
+
+        for (int i = 0; i < 10; i++) {
+            if (i % 2 == 0) { 
+                list.Add(carFactory.FactoryMethod());
+            }
+            else
+            {
+                list.Add(truckFactory.FactoryMethod());
+            }
+        }
+
+        foreach(IVehicle vehicle in list)
+        {
+            Console.WriteLine(vehicle.GetType() + vehicle.Drive());
+
+            if(vehicle is Dacia dacia)
+            {
+                Console.WriteLine(dacia.VehicleBrand());
+                Console.WriteLine($"Has particle filter: {dacia.HasParticleFilter()}");
+
+            }
+            else if (vehicle is Scania scania) {
+                Console.WriteLine(scania.VehicleBrand());
+                Console.WriteLine($"Has particle filter: {scania.HasParticleFilter()}");
+            }
+
+            Console.WriteLine("\n");
+        }
     }
 }
