@@ -108,12 +108,11 @@ public class FactoryPattern
     {
         CarFactory carFactory = new CarFactory();     
         TruckFactory truckFactory = new TruckFactory();
-
         List<IVehicle> list = new List<IVehicle>();
 
         for (int i = 0; i < 10; i++) {
             if (i % 2 == 0) { 
-                list.Add(carFactory.FactoryMethod());
+                list.Add(creator(carFactory));
             }
             else
             {
@@ -129,7 +128,6 @@ public class FactoryPattern
             {
                 Console.WriteLine(dacia.VehicleBrand());
                 Console.WriteLine($"Has particle filter: {dacia.HasParticleFilter()}");
-
             }
             else if (vehicle is Scania scania) {
                 Console.WriteLine(scania.VehicleBrand());
@@ -138,5 +136,10 @@ public class FactoryPattern
 
             Console.WriteLine("\n");
         }
+    }
+
+    private IVehicle creator(AbstractVehicleFactory abstractVehicleFactory)
+    {
+        return(abstractVehicleFactory.FactoryMethod());
     }
 }
